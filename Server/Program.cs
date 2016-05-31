@@ -79,8 +79,7 @@ namespace Server
 				Console.WriteLine ("[server] waiting for all clients");
 #endif
 				stopwatch.Start ();
-				Task.WaitAll (workerTasks.ToArray ());
-				stopwatch.Stop ();
+				Task.WhenAll (workerTasks.ToArray ()).ContinueWith (tasks => stopwatch.Stop ()).Wait ();
 			});
 		}
 
